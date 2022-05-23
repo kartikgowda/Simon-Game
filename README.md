@@ -1,2 +1,2 @@
 # Simon-Game
-Project recreating Simon Game on a website
+Project recreating Simon Game on a website using jQuery
