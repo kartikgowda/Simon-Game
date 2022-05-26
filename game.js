@@ -1,25 +1,23 @@
-const gamePattern = [];
+let gamePattern = [];
 let userClickedPattern = [];
 let level = 0;
 let started = false;
 let wrongSound = 'wrong';
-newGame();
 
 //? Button Colours
 let buttonColours = ['red', 'blue', 'green', 'yellow'];
 
 //* jQuery
-function newGame() {
-  $(document).keydown(function () {
-    if (!started) {
-      //? Selecting buttonColours array element(colour) with the random number created
-      nextSequence();
-      $('h1').text('Level ' + level);
-      started = true;
-    }
-  });
-}
-
+// function newGame() {
+$(document).keydown(function () {
+  if (!started) {
+    //? Selecting buttonColours array element(colour) with the random number created
+    nextSequence();
+    $('h1').text('Level ' + level);
+    started = true;
+  }
+});
+// }
 // if (started) {
 $('.btn').click(function () {
   let userChosenColour = $(this).attr('id');
@@ -32,6 +30,7 @@ $('.btn').click(function () {
 // }
 //? Creating random next sequence
 function nextSequence() {
+  userClickedPattern = [];
   let randomNumber = Math.floor(Math.random() * 4);
   let randomChosenColour = buttonColours[randomNumber];
   playSound(randomChosenColour);
@@ -54,14 +53,16 @@ function checkAnswer(currentLevel) {
       setTimeout(() => {
         nextSequence();
       }, 1000);
-      userClickedPattern = [];
     }
   } else {
-    console.log('Failure, useless trash cant even get Simon right');
-    $('h1').text('Wrong Answer, Press any key to restart the game');
+    // console.log('Failure, useless trash cant even get Simon right');
     playSound(wrongSound);
+    $('h1').text('GAME OVER. Press any key to restart game'); // Press any key to restart the game');
     $('body').addClass('game-over');
-    newGame();
+    setTimeout(() => {
+      $('body').removeClass('game-over');
+    }, 400);
+    restartGame();
   }
 }
 
@@ -77,4 +78,11 @@ function animatePress(buttonColour) {
   setTimeout(() => {
     $('#' + buttonColour).removeClass('pressed');
   }, 75);
+}
+
+function restartGame() {
+  level = 0;
+  gamePattern = [];
+  userClickedPattern = [];
+  started = false;
 }
