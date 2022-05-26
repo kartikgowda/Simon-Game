@@ -1,3 +1,5 @@
+//! Refactoring
+//TODO: Refactoring the Code Remaining
 let gamePattern = [];
 let userClickedPattern = [];
 let level = 0;
@@ -5,11 +7,15 @@ let started = false;
 let wrongSound = 'wrong';
 
 //? Button Colours
+//TODO: Instead of having buttons try using Design Similar to Original Simon Game Set
 let buttonColours = ['red', 'blue', 'green', 'yellow'];
 
 //* jQuery
-// function newGame() {
 $(document).keydown(function () {
+  //TODO: Count Down Delay after user presses a key
+
+  //TODO: Something like game is starting in 3, 2, 1, GO!
+
   if (!started) {
     //? Selecting buttonColours array element(colour) with the random number created
     nextSequence();
@@ -17,8 +23,8 @@ $(document).keydown(function () {
     started = true;
   }
 });
-// }
-// if (started) {
+
+//TODO: Mouse CLick on buttons disabled until user presses a key
 $('.btn').click(function () {
   let userChosenColour = $(this).attr('id');
   userClickedPattern.push(userChosenColour);
@@ -27,7 +33,7 @@ $('.btn').click(function () {
   animatePress(userChosenColour);
   checkAnswer(userClickedPattern.length - 1);
 });
-// }
+
 //? Creating random next sequence
 function nextSequence() {
   userClickedPattern = [];
@@ -41,13 +47,13 @@ function nextSequence() {
     .fadeIn(200);
   level = gamePattern.length;
 
+  //TODO: Maybe use ID instead
   $('h1').text('Level ' + level);
-  // return randomNumber;
 }
 
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel] == userClickedPattern[currentLevel]) {
-    console.log('Success');
+    // console.log('Success, like never before');
 
     if (gamePattern.length === userClickedPattern.length) {
       setTimeout(() => {
@@ -56,6 +62,7 @@ function checkAnswer(currentLevel) {
     }
   } else {
     // console.log('Failure, useless trash cant even get Simon right');
+
     playSound(wrongSound);
     $('h1').text('GAME OVER. Press any key to restart game'); // Press any key to restart the game');
     $('body').addClass('game-over');
